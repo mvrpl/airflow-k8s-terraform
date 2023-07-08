@@ -83,9 +83,9 @@ resource "kubernetes_cron_job_v1" "airflow_dags_s3_sync" {
           metadata {}
           spec {
             volume {
-              name = "airflow-eks-dags-pv"
+              name = kubernetes_persistent_volume.airflow_dags_pv.metadata.0.name
               persistent_volume_claim {
-                claim_name = "airflow-eks-dags-pvc"
+                claim_name = kubernetes_persistent_volume_claim_v1.airflow_dags_pvc.metadata.0.name
               }
             }
             container {
@@ -107,7 +107,7 @@ resource "kubernetes_cron_job_v1" "airflow_dags_s3_sync" {
               command           = ["aws"]
               args              = ["s3", "sync", "s3://airflow-eks-dags/", "/dags/", "--no-progress", "--delete"]
               volume_mount {
-                name       = "airflow-eks-dags-pv"
+                name       = kubernetes_persistent_volume.airflow_dags_pv.metadata.0.name
                 mount_path = "/dags"
               }
             }
