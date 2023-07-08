@@ -1,0 +1,1 @@
+terraform init && terraform plan && terraform $args[0]
