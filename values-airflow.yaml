@@ -64,6 +64,8 @@ airflow:
   config:
     AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: "10"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
+    AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
 
   ## a list of users to create
   ## - templates can ONLY be used in: `password`, `email`, `firstName`, `lastName`
@@ -217,7 +219,8 @@ airflow:
   ##   extraPipPackages:
   ##     - "SomeProject==1.0.0"
   ##
-  extraPipPackages: []
+  extraPipPackages:
+    - "apache-airflow-providers-amazon==8.5.1"
 
   ## pip packages that are protected from upgrade/downgrade by `extraPipPackages`
   ## - [WARNING] Pods will fail to start if `extraPipPackages` would cause these packages to change versions
