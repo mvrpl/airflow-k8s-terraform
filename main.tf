@@ -126,7 +126,7 @@ resource "helm_release" "airflow_eks" {
 
   repository = "https://airflow-helm.github.io/charts"
   chart      = "airflow"
-  version    = "8.7.1"
+  version    = "8.8.0"
 
   values = [
     "${file("values-airflow.yaml")}"
